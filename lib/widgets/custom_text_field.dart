@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String hintText;
   final bool isPassword;
   final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
-    required this.label,
+     this.label,
     required this.hintText,
     this.isPassword = false,
     this.controller,
@@ -20,7 +20,7 @@ class CustomTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          label,
+          label??'',
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 5),

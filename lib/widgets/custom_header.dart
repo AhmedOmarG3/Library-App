@@ -11,7 +11,11 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+<<<<<<< HEAD
+          Image.asset('assets/images/logo.jpg', height: 60),
+=======
           Image.asset('assets/images/book.png', height: 80),
+>>>>>>> 4f6c5efd0311c670c4c6540e373d2ab8a196a60a
           const Text(
             "BookVerse",
             style: TextStyle(
@@ -24,20 +28,20 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
           Row(
             children: [
               const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/person.png'),
-                radius: 25,
+                backgroundImage: AssetImage('assets/images/person.jpg'),
+                radius: 20,
               ),
               const SizedBox(width: 10),
-              IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                  size: 40,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              ),
+              // IconButton(
+              //   icon: const Icon(
+              //     Icons.menu,
+              //     color: Colors.black,
+              //     size: 25,
+              //   ),
+              //   onPressed: () {
+              //     Scaffold.of(context).openDrawer();
+              //   },
+              // ),
             ],
           ),
         ],
