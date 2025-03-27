@@ -11,10 +11,11 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset('assets/images/books.avif', height: 80),
+          Image.asset('assets/images/book.png', height: 80),
           const Text(
             "BookVerse",
             style: TextStyle(
+              fontFamily: 'Lucida Calligraphy',
               fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Colors.black,
