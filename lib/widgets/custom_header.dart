@@ -7,15 +7,12 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
+      scrolledUnderElevation: 0,
       elevation: 0,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-<<<<<<< HEAD
           Image.asset('assets/images/logo.jpg', height: 60),
-=======
-          Image.asset('assets/images/book.png', height: 80),
->>>>>>> 4f6c5efd0311c670c4c6540e373d2ab8a196a60a
           const Text(
             "BookVerse",
             style: TextStyle(
@@ -25,13 +22,13 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.black,
             ),
           ),
-          Row(
+          const Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 backgroundImage: AssetImage('assets/images/person.jpg'),
                 radius: 20,
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10),
               // IconButton(
               //   icon: const Icon(
               //     Icons.menu,

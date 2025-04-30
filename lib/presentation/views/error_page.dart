@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/presentation/views/home_view.dart';
 import 'package:library_app/widgets/custom_button.dart';
 import 'package:library_app/widgets/custom_header.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({super.key});
-static const routeName = '/ErrorPage';
+  static const routeName = '/ErrorPage';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +53,11 @@ static const routeName = '/ErrorPage';
                 text: "Back to home page",
                 color: Colors.green.shade700,
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return HomeView();
+                    },
+                  ));
                 },
               ),
             ],

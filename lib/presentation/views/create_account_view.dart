@@ -7,10 +7,11 @@ import 'package:library_app/widgets/custom_text_field.dart';
 
 class CreateAccountView extends StatelessWidget {
   const CreateAccountView({super.key});
-static const routeName = '/CreateAccountView';
+  static const routeName = '/CreateAccountView';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomHeader(),
       body: SingleChildScrollView(
           child: Padding(
