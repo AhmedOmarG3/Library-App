@@ -1,16 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/helpers/signUp_method.dart';
 import 'package:library_app/presentation/views/login_view.dart';
 import 'package:library_app/widgets/custom_button.dart';
 import 'package:library_app/widgets/custom_button_with_icon.dart';
 import 'package:library_app/widgets/custom_header.dart';
 import 'package:library_app/widgets/custom_text_field.dart';
-import 'package:library_app/widgets/show_snak_bar.dart';
+import 'package:library_app/helpers/show_snak_bar.dart';
 
 class CreateAccountView extends StatefulWidget {
   const CreateAccountView({super.key});
   static const routeName = '/CreateAccountView';
-
 
   @override
   State<CreateAccountView> createState() => _CreateAccountViewState();
@@ -22,7 +21,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   String? email;
   String? password;
   String? confirmPassword;
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,26 +83,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             showSnakBar(context, 'Passwords do not match');
                             return;
                           }
-                          try {
-                            await FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                              email: email!,
-                              password: password!,
-                            );
-                            showSnakBar(
-                                context, 'Account created successfully');
-                            
-                          }  on FirebaseAuthException catch (e) {
-  if (e.code == 'email-already-in-use') {
-    showSnakBar(context, 'This email is already in use.');
-  } else if (e.code == 'invalid-email') {
-    showSnakBar(context, 'The email address is invalid.');
-  } else if (e.code == 'weak-password') {
-    showSnakBar(context, 'The password is too weak.');
-  } else {
-    showSnakBar(context, e.message ?? 'Something went wrong.');
-  }
-                          }
+                          await createAccountFirbase(context,email: email!, password: password!);
                         } else {
                           setState(() {
                             autovalidateMode = AutovalidateMode.always;

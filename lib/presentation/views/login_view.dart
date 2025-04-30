@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/helpers/sign_In_method.dart';
 import 'package:library_app/presentation/views/create_account_view.dart';
 import 'package:library_app/widgets/custom_button.dart';
 import 'package:library_app/widgets/custom_header.dart';
 import 'package:library_app/widgets/custom_text_field.dart';
-import 'package:library_app/widgets/show_snak_bar.dart';
+import 'forget_password_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -63,7 +63,8 @@ class _LoginViewState extends State<LoginView> {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, ForgetPasswordView.routeName);
+                      Navigator.pushNamed(
+                          context, ForgetPasswordView.routeName,arguments: email??'');
                     },
                     child: const Text(
                       "Forget Password?",
@@ -76,31 +77,9 @@ class _LoginViewState extends State<LoginView> {
                     text: "Login",
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        try {
-                          UserCredential userCredential = await FirebaseAuth
-                              .instance
-                              .signInWithEmailAndPassword(
-                                  email: email!, password: password!);
-            
-                          showSnakBar(context, 'Login Successful!');
-                        } on FirebaseAuthException catch (e) {
-  if (e.code == 'user-not-found') {
-    showSnakBar(context, 'No user found for that email.');
-  } else if (e.code == 'wrong-password') {
-    showSnakBar(context, 'Wrong password provided.');
-  } else {
-    showSnakBar(context, e.code ?? 'Something went wrong.');
-  }
-}
-            
-                        setState(() {
-                          autovalidateMode = AutovalidateMode.disabled;
-                        });
-                      } else {
-                        setState(() {
-                          autovalidateMode = AutovalidateMode.always;
-                        });
-                      }
+                        await signWithEmailAndPassword(context,
+                            email: email!, password: password!);
+                      } 
                     }),
                 const SizedBox(height: 15),
                 Row(
