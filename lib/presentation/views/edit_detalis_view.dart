@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/presentation/views/login_view.dart';
 import 'package:library_app/widgets/custom_button.dart';
-import 'package:library_app/widgets/custom_button_with_icon.dart';
 import 'package:library_app/widgets/custom_header.dart';
 import 'package:library_app/widgets/custom_text_field.dart';
 
 class EditDetalisView extends StatelessWidget {
   const EditDetalisView({super.key});
-static const routeName = '/EditDetalisView';
+  static const routeName = '/EditDetalisView';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomHeader(),
       body: SingleChildScrollView(
           child: Padding(
@@ -19,7 +18,7 @@ static const routeName = '/EditDetalisView';
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Edit Your Profile",
                 style: TextStyle(
                   color: Colors.green,
@@ -47,7 +46,7 @@ static const routeName = '/EditDetalisView';
                 hintText: "Cairo",
                 label: 'Address',
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 70),
               Row(
                 children: [
                   CustomButton(
@@ -57,7 +56,7 @@ static const routeName = '/EditDetalisView';
                     color: Colors.white,
                     textColor: Colors.black,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   CustomButton(

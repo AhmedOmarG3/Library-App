@@ -9,6 +9,9 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
       forceMaterialTransparency: true,
       backgroundColor: Colors.white,
 
+      scrolledUnderElevation: 0,
+      elevation: 0,
+
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -22,13 +25,13 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.black,
             ),
           ),
-          Row(
+          const Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 backgroundImage: AssetImage('assets/images/person.jpg'),
                 radius: 20,
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10),
               // IconButton(
               //   icon: const Icon(
               //     Icons.menu,

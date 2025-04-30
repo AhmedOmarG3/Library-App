@@ -11,6 +11,7 @@ class CreateAccountView extends StatefulWidget {
   const CreateAccountView({super.key});
   static const routeName = '/CreateAccountView';
 
+
   @override
   State<CreateAccountView> createState() => _CreateAccountViewState();
 }
@@ -21,9 +22,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   String? email;
   String? password;
   String? confirmPassword;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomHeader(),
       body: SingleChildScrollView(
           child: Padding(
@@ -81,8 +85,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             showSnakBar(context, 'Passwords do not match');
                             return;
                           }
-
-                          // تسجيل المستخدم في Firebase
                           try {
                             await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
