@@ -6,16 +6,13 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      forceMaterialTransparency: true,
       backgroundColor: Colors.white,
-      elevation: 0,
+
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-<<<<<<< HEAD
           Image.asset('assets/images/logo.jpg', height: 60),
-=======
-          Image.asset('assets/images/book.png', height: 80),
->>>>>>> 4f6c5efd0311c670c4c6540e373d2ab8a196a60a
           const Text(
             "BookVerse",
             style: TextStyle(

@@ -1,82 +1,135 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/presentation/views/create_account_view.dart';
 import 'package:library_app/presentation/views/forget_password_view.dart';
 import 'package:library_app/widgets/custom_button.dart';
 import 'package:library_app/widgets/custom_header.dart';
 import 'package:library_app/widgets/custom_text_field.dart';
+import 'package:library_app/widgets/show_snak_bar.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
-static const routeName = '/LoginView';
+  static const routeName = '/LoginView';
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String? email;
+  String? password;
+  AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: const CustomHeader(),
-          body: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 50),
-        const Text(
-          "Welcome Back!",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        const Text(
-          "Explore Unique Handmade Creations",
-          style: TextStyle(fontSize: 16, color: Colors.grey),
-        ),
-        const SizedBox(height: 30),
-        const CustomTextField(label: 'Email', hintText: "Enter your email"),
-        const SizedBox(height: 15),
-        const CustomTextField(label: 'Password', hintText: "Enter your Password", isPassword: true,),
-        const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, CreateAccountView.routeName);
-            },
-            child: const Text(
-              "Forget Password?",
-              style: TextStyle(fontSize: 14, color: Colors.blue),
+      backgroundColor: Colors.white,
+      appBar: const CustomHeader(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Form(
+          autovalidateMode: autovalidateMode,
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 50),
+                const Text(
+                  "Welcome Back!",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  "Explore Unique Handmade Creations",
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+                const SizedBox(height: 30),
+                CustomTextField(
+                    onChanged: (p0) => email = p0,
+                    label: 'Email',
+                    hintText: "Enter your email"),
+                const SizedBox(height: 15),
+                CustomTextField(
+                  onChanged: (p0) => password = p0,
+                  label: 'Password',
+                  hintText: "Enter your Password",
+                  isPassword: true,
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, ForgetPasswordView.routeName);
+                    },
+                    child: const Text(
+                      "Forget Password?",
+                      style: TextStyle(fontSize: 14, color: Colors.blue),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                CustomButton(
+                    text: "Login",
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        try {
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .signInWithEmailAndPassword(
+                                  email: email!, password: password!);
+            
+                          showSnakBar(context, 'Login Successful!');
+                        } on FirebaseAuthException catch (e) {
+  if (e.code == 'user-not-found') {
+    showSnakBar(context, 'No user found for that email.');
+  } else if (e.code == 'wrong-password') {
+    showSnakBar(context, 'Wrong password provided.');
+  } else {
+    showSnakBar(context, e.code ?? 'Something went wrong.');
+  }
+}
+            
+                        setState(() {
+                          autovalidateMode = AutovalidateMode.disabled;
+                        });
+                      } else {
+                        setState(() {
+                          autovalidateMode = AutovalidateMode.always;
+                        });
+                      }
+                    }),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Not a member yet?",
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateAccountView()));
+                      },
+                      child: const Text(
+                        "Sign up",
+                        style: TextStyle(fontSize: 14, color: Colors.blue),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
-        const SizedBox(height: 20),
-        CustomButton(
-          text: "Login",
-          onPressed: () {
-            // Login action
-          },
-        ),
-        const SizedBox(height: 15),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Not a member yet?",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            TextButton(
-              onPressed: () {
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAccountView()));
-              },
-              child: const Text(
-                "Sign up",
-                style: TextStyle(fontSize: 14, color: Colors.blue),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-          ),
-        );
+      ),
+    );
   }
 }

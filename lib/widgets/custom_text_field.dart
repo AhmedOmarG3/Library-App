@@ -11,9 +11,9 @@ class CustomTextField extends StatelessWidget {
      this.label,
     required this.hintText,
     this.isPassword = false,
-    this.controller,
+    this.controller, this.onChanged,
   });
-
+final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +24,8 @@ class CustomTextField extends StatelessWidget {
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField( onChanged:onChanged,
+          validator: (value) => value!.isEmpty ? 'Please enter your $label' : null,
           controller: controller,
           obscureText: isPassword,
           decoration: InputDecoration(
